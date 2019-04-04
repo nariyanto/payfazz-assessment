@@ -24,8 +24,9 @@ app.get('/', (req, res) => {
 applyMiddleware(errorHandlers, app);
 
 const { PORT = 3000 } = process.env;
-const server = http.createServer(app);
 
-server.listen(PORT, () =>
-  console.log(`Server is running http://localhost:${PORT}...`)
-);
+export const server = async () => {
+  await app.listen(PORT);
+  console.log(`Server started at http://localhost:${PORT}`);
+  console.log(`Press Ctrl+C to quit`);
+};
