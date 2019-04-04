@@ -3,6 +3,7 @@ import express from "express";
 import { applyMiddleware } from "./utils";
 import middleware from "./middleware";
 import errorHandlers from "./middleware/errorHandlers";
+import { Routes } from "./routes";
 
 process.on("uncaughtException", e => {
   console.log(e);
@@ -17,9 +18,8 @@ process.on("unhandledRejection", e => {
 const app = express();
 applyMiddleware(middleware, app);
 
-app.get('/', (req, res) => {
-  res.json({ hello: 'world' });
-});
+const routes = new Routes();
+routes.routes(app);
 
 applyMiddleware(errorHandlers, app);
 
